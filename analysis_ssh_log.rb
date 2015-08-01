@@ -4,9 +4,10 @@ ta=[]
 
  File.open(fname) do |file|
   file.each_line do |line|
-    if line =~ /Failed/
+    if line =~ /[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/
         code = line.scan(/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/)[0]
         time_stamp = line.scan(/[A-Za-z]+\s[0-9]+\s[0-9]+\:[0-9]+\:[0-9]+/)[0]
+        time_stamp = "" if time_stamp == nil
        
          next if code.index("xxx.xxx")!=nil # 这里的xxx.xxx就是自己的IP子网前缀。把自己的IP去掉，防止自己也登录不了！！！
 
@@ -107,4 +108,19 @@ ARGV.each do |ele|
   end
 
  end
+end 
+
+
+def merge_ip_list(s)
+
+  ta = s.split('|')
+
+  nta = ta.map do |h| 
+   na = (h.scan /[0-9]+\./) 
+   na[0]+na[1]+na[2]+'0-'+ na[0]+na[1]+na[2]+'255'
+  end 
+
+  nta.uniq!
+  nta.each {|x| p x}
+
 end 
