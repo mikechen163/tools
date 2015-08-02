@@ -6,7 +6,7 @@ ta=[]
   file.each_line do |line|
     if line =~ /[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/
         code = line.scan(/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/)[0]
-        time_stamp = line.scan(/[A-Za-z]+\s[0-9]+\s[0-9]+\:[0-9]+\:[0-9]+/)[0]
+        time_stamp = line.scan(/[A-Za-z]+\s+\w\s+[0-9]+\:[0-9]+\:[0-9]+/)[0]
         time_stamp = "" if time_stamp == nil
        
          next if code.index("xxx.xxx")!=nil # 这里的xxx.xxx就是自己的IP子网前缀。把自己的IP去掉，防止自己也登录不了！！！
