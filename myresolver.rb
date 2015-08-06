@@ -31,12 +31,11 @@ class MyResolver < RubyDNS::Resolver
                 end
 		    end
 
-		 	domestic_resp = get_domestic_reponse(message)
-		 	domestic_addr = get_address(domestic_resp) 
-
+		 	domestic_resp, domestic_addr = get_domestic_reponse(message)
+		 	
 		 	#@logger.debug "domestic_addr =  #{domestic_addr} " if @logger 
 
-		 	if match_domestic?(domestic_addr[0].to_s)
+		 	if (domestic_addr.length!=0) and  match_domestic?(domestic_addr[0].to_s)
 		 		h=Hash.new
 		 		h[:name] = get_request_domain_name(message)
 		 		h[:ip] =domestic_addr[0].to_s
@@ -45,15 +44,20 @@ class MyResolver < RubyDNS::Resolver
 		 		@cache.push(h) 
 		 		return domestic_resp 
 		 	else
-              	oversea_resp  = get_oversea_reponse(message)
-		 	    oversea_addr  = get_address(oversea_resp,true) 
+              	oversea_resp,oversea_addr  = get_oversea_reponse(message)
+                
+                if (oversea_addr.length!=0) 
+			 	    h=Hash.new
+			 		h[:name] = get_request_domain_name(message)
+			 		h[:ip] =oversea_addr[0].to_s
+			 		h[:response] = oversea_resp
+			 		h[:time] = Time.now
+			 		@cache.push(h) 
+		 	    end
 
-		 	    h=Hash.new
-		 		h[:name] = get_request_domain_name(message)
-		 		h[:ip] =oversea_addr[0].to_s
-		 		h[:response] = oversea_resp
-		 		h[:time] = Time.now
-		 		@cache.push(h) 
+		 	    
+
+
                 return oversea_resp 
             end
             
@@ -61,12 +65,15 @@ class MyResolver < RubyDNS::Resolver
 
 		def get_address(response,oversea_flag=false)
 			result = []
+
+            #return result if response==nil
+			#return result if response.answer==nil
             
             response.answer.each do |res|
 	            res.each do |x|
 	              #@logger.debug "get_address #{x.inspect} " if @logger
 	              if x.class == Resolv::DNS::Resource::IN::A
-	              	result.push(x.address)
+	              	result.push(x.address) if x!=nil
 	              end
 	            end
             end
@@ -79,7 +86,7 @@ class MyResolver < RubyDNS::Resolver
 			return result
 		end
 
-		def query_dns(message,server_list)
+		def query_dns(message,server_list,oversea_flag=false)
 			request = Request.new(message,server_list)
 			request.each do |server|
 				#@logger.debug "[#{message.id}] Sending request #{message.question} to server #{server.instance_variables}" if @logger
@@ -97,7 +104,8 @@ class MyResolver < RubyDNS::Resolver
 					end
 					
 					if valid_response(message, response)
-						return response
+						addr = get_address(response,oversea_flag)
+						return response , addr
 					end
 				rescue Task::TimeoutError
 					@logger.debug "[#{message.id}] Request timed out!" if @logger
@@ -110,14 +118,14 @@ class MyResolver < RubyDNS::Resolver
 				end
 			end
 
-			return nil
+			return nil,[]
 		end #end of query_dns
 
 		def get_domestic_reponse(message)
 			return query_dns(message, [[:udp, "223.5.5.5", 53],[:udp, "14.18.142.2", 53]])
 		end 
 		def get_oversea_reponse(message)
-			return query_dns(message, [[:udp, "127.0.0.1", 5533]])
+			return query_dns(message, [[:udp, "127.0.0.1", 5533]],true)
 		end 
 
 		def get_request_domain_name(message)

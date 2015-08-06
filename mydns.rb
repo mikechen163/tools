@@ -1,12 +1,11 @@
 #!/usr/bin/env ruby
 ##
-#$LOAD_PATH.unshift(File.dirname(__FILE__)) unless $LOAD_PATH.include?(File.dirname(__FILE__)) 
 require 'rubydns'
 require_relative 'myresolver'
 
 INTERFACES = [
-    [:udp, "0.0.0.0", 53],
-    [:tcp, "0.0.0.0", 53]
+    [:udp, "127.0.0.1", 53],
+    [:tcp, "127.0.0.1", 53]
 ]
 Name = Resolv::DNS::Name
 IN = Resolv::DNS::Resource::IN
@@ -28,12 +27,5 @@ RubyDNS::run_server(:listen => INTERFACES) do
     # Default DNS handler
     otherwise do |transaction|
         transaction.passthrough!(oversea_resolver)
-        #res2 = transaction.passthrough!(oversea)
-
-        # puts res1.class
-        # puts res2
-
-        # res1 
-
     end
 end
