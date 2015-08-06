@@ -1,4 +1,5 @@
 require 'rubydns'
+require 'time'
 require_relative 'domestic_addr'
 
 
@@ -7,6 +8,8 @@ class MyResolver < RubyDNS::Resolver
     def initialize(servers, options = {})
     	    @domestic_addr = Domestic_address.new
     	    @domestic_addr.load_domestic_file('chnroute.txt')
+
+    	    @cache=[]
 
 			super
     end
@@ -17,16 +20,40 @@ class MyResolver < RubyDNS::Resolver
 	
 	def dispatch_request(message)
 
+		    name = get_request_domain_name(message)
+		    if (h = @cache.find {|h| h[:name] == name}) != nil
+		    	t = Time.now
+		    	if (t-h[:time] < 60*60*12)  # update cache every 12 hour
+		    	  @logger.debug "find #{name} #{h[:ip]} in cache keep in #{t-h[:time]} seconds" if @logger 
+                  return h[:response]
+                else
+                  @cache.delete_if {|h| h[:name] == name}
+                end
+		    end
+
 		 	domestic_resp = get_domestic_reponse(message)
 		 	domestic_addr = get_address(domestic_resp) 
 
 		 	#@logger.debug "domestic_addr =  #{domestic_addr} " if @logger 
 
 		 	if match_domestic?(domestic_addr[0].to_s)
+		 		h=Hash.new
+		 		h[:name] = get_request_domain_name(message)
+		 		h[:ip] =domestic_addr[0].to_s
+		 		h[:response] = domestic_resp
+		 		h[:time] = Time.now
+		 		@cache.push(h) 
 		 		return domestic_resp 
 		 	else
               	oversea_resp  = get_oversea_reponse(message)
 		 	    oversea_addr  = get_address(oversea_resp,true) 
+
+		 	    h=Hash.new
+		 		h[:name] = get_request_domain_name(message)
+		 		h[:ip] =oversea_addr[0].to_s
+		 		h[:response] = oversea_resp
+		 		h[:time] = Time.now
+		 		@cache.push(h) 
                 return oversea_resp 
             end
             

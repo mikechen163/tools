@@ -5,8 +5,8 @@ require 'rubydns'
 require_relative 'myresolver'
 
 INTERFACES = [
-    [:udp, "0.0.0.0", 5300],
-    [:tcp, "0.0.0.0", 5300]
+    [:udp, "0.0.0.0", 53],
+    [:tcp, "0.0.0.0", 53]
 ]
 Name = Resolv::DNS::Name
 IN = Resolv::DNS::Resource::IN
