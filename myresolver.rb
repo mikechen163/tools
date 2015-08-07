@@ -10,8 +10,17 @@ class MyResolver < RubyDNS::Resolver
     	   # @domestic_addr.load_domestic_file('chnroute.txt')
 
     	    @cache=[]
+    	    @oversea_resolve = File.open('oversea.conf','a')
 
 			super
+    end
+
+    def close_file
+    	@oversea_resolve.close
+    end
+
+    def append_record(name,ip)
+    	@oversea_resolve.puts("address=/#{name}/#{ip}")
     end
 
     def match_domestic?(ip)
@@ -27,7 +36,7 @@ class MyResolver < RubyDNS::Resolver
 		    name = get_request_domain_name(message)
 		    if (h = @cache.find {|h| (h[:name] == name) and h[:state_valid]}) != nil
 		    	t = Time.now
-		    	if (t-h[:time] < 60*60*12)  # update cache every 12 hour
+		    	if (t-h[:time] < 60*60)  # update cache every 12 hour
 		    	  @logger.debug "find #{name} #{h[:ip]} in cache keep in #{t-h[:time]} seconds" if @logger 
                   return h[:response]
                 else
@@ -67,6 +76,7 @@ class MyResolver < RubyDNS::Resolver
 			 	    #h=Hash.new
 			 	    if ((h = @cache.find {|h| (h[:name] == name) and (not h[:state_valid])}) == nil)
 		 		       h=Hash.new
+		 		       append_record(get_request_domain_name(message),result_to_s(oversea_addr))
 		 	        end
 			 		h[:name] = get_request_domain_name(message)
 			 		h[:ip] =oversea_addr[0].to_s
@@ -164,7 +174,7 @@ class MyResolver < RubyDNS::Resolver
 		end #end of query_dns
 
 		def get_domestic_reponse(message)
-			return query_dns(message, [[:udp, "223.5.5.5", 53],[:udp, "14.18.142.2", 53]])
+			return query_dns(message, [[:udp, "192.168.1.1", 53],[:udp, "223.5.5.5", 53],[:udp, "14.18.142.2", 53]])
 		end 
 		def get_oversea_reponse(message)
 			return query_dns(message, [[:udp, "127.0.0.1", 5533]],true)

@@ -3,6 +3,7 @@ class Domestic_address
 	 def initialize(domestic_addr_file,force_domestic_file)
     	    load_domestic_file(domestic_addr_file)
     	    load_force_domestic_file(force_domestic_file)
+    	    
 
     end
 

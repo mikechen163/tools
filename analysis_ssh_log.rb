@@ -4,7 +4,7 @@ ta=[]
 
  File.open(fname) do |file|
   file.each_line do |line|
-    if line =~ /[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/
+    if line =~ /from\s+[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/
         code = line.scan(/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/)[0]
         time_stamp = line.scan(/[A-Za-z]+\s+\w\s+[0-9]+\:[0-9]+\:[0-9]+/)[0]
         time_stamp = "" if time_stamp == nil

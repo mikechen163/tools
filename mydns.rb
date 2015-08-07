@@ -30,14 +30,18 @@ logger.formatter = proc { |severity, datetime, progname, msg|
 #oversea_resolver = MyResolver.new([:q:[:tcp, "8.8.8.8", 53],[:tcp, "151.236.20.236", 53],[:tcp, "106.185.41.36", 53]])
 oversea_resolver = MyResolver.new([[:tcp, "127.0.0.1", 5533]],:logger=>logger)
 
-# Start the RubyDNS server
-RubyDNS::run_server(:listen => INTERFACES) do
-    match(/test\.mydomain\.org/, IN::A) do |transaction|
-        transaction.respond!("10.0.0.80")
-    end
+begin
+    # Start the RubyDNS server
+    RubyDNS::run_server(:listen => INTERFACES) do
+        match(/test\.mydomain\.org/, IN::A) do |transaction|
+            transaction.respond!("10.0.0.80")
+        end
 
-    # Default DNS handler
-    otherwise do |transaction|
-        transaction.passthrough!(oversea_resolver)
+        # Default DNS handler
+        otherwise do |transaction|
+            transaction.passthrough!(oversea_resolver)
+        end
     end
+ensure
+  oversea_resolver.close_file
 end
