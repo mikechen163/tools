@@ -6,8 +6,8 @@ require_relative 'domestic_addr'
 class MyResolver < RubyDNS::Resolver
 
     def initialize(servers, options = {})
-    	    @domestic_addr = Domestic_address.new
-    	    @domestic_addr.load_domestic_file('chnroute.txt')
+    	    @domestic_addr = Domestic_address.new('chnroute.txt','domestic_name.conf')
+    	   # @domestic_addr.load_domestic_file('chnroute.txt')
 
     	    @cache=[]
 
@@ -17,41 +17,62 @@ class MyResolver < RubyDNS::Resolver
     def match_domestic?(ip)
     	return @domestic_addr.belong_to?(ip)
     end
+
+    def force_in_domestic?(ip)
+    	return @domestic_addr.is_force_domain?(ip)
+    end
 	
 	def dispatch_request(message)
 
 		    name = get_request_domain_name(message)
-		    if (h = @cache.find {|h| h[:name] == name}) != nil
+		    if (h = @cache.find {|h| (h[:name] == name) and h[:state_valid]}) != nil
 		    	t = Time.now
 		    	if (t-h[:time] < 60*60*12)  # update cache every 12 hour
 		    	  @logger.debug "find #{name} #{h[:ip]} in cache keep in #{t-h[:time]} seconds" if @logger 
                   return h[:response]
                 else
-                  @cache.delete_if {|h| h[:name] == name}
+                  #@cache.delete_if {|h| h[:name] == name}
+                  h[:state_valid] = false
                 end
 		    end
 
 		 	domestic_resp, domestic_addr = get_domestic_reponse(message)
+
+            if (domestic_addr.length!=0) and force_in_domestic?(name)
+              @logger.debug "force in domesic [#{name}  #{result_to_s(domestic_addr)}] " if @logger
+		      return domestic_resp  
+		    end
 		 	
 		 	#@logger.debug "domestic_addr =  #{domestic_addr} " if @logger 
 
 		 	if (domestic_addr.length!=0) and  match_domestic?(domestic_addr[0].to_s)
-		 		h=Hash.new
-		 		h[:name] = get_request_domain_name(message)
-		 		h[:ip] =domestic_addr[0].to_s
-		 		h[:response] = domestic_resp
-		 		h[:time] = Time.now
-		 		@cache.push(h) 
+		 		
+		 		#do not buffer domestic ip
+		 		# if ((h = @cache.find {|h| (h[:name] == name) and (not h[:state_valid])}) == nil)
+		 		#   h=Hash.new
+		 	 #    end
+
+		 		# h[:name] = get_request_domain_name(message)
+		 		# h[:ip] =domestic_addr[0].to_s
+		 		# h[:response] = domestic_resp
+		 		# h[:time] = Time.now
+		 		# h[:state_valid] = true
+		 		# @cache.push(h) 
 		 		return domestic_resp 
+
 		 	else
               	oversea_resp,oversea_addr  = get_oversea_reponse(message)
                 
                 if (oversea_addr.length!=0) 
-			 	    h=Hash.new
+			 	    #h=Hash.new
+			 	    if ((h = @cache.find {|h| (h[:name] == name) and (not h[:state_valid])}) == nil)
+		 		       h=Hash.new
+		 	        end
 			 		h[:name] = get_request_domain_name(message)
 			 		h[:ip] =oversea_addr[0].to_s
 			 		h[:response] = oversea_resp
 			 		h[:time] = Time.now
+			 		h[:state_valid] = true
 			 		@cache.push(h) 
 		 	    end
 
@@ -63,7 +84,17 @@ class MyResolver < RubyDNS::Resolver
             
 		end #end of dispatch
 
-		def get_address(response,oversea_flag=false)
+		def result_to_s(result)
+			ip_list =""
+            result.each do |addr|
+            	ip_list << (addr.to_s + ' ')
+            end 
+
+            return ip_list
+
+		end
+
+		def get_address(name,response,oversea_flag=false)
 			result = []
 
             #return result if response==nil
@@ -78,10 +109,21 @@ class MyResolver < RubyDNS::Resolver
 	            end
             end
 
-            result.each do |addr| 
-            	@logger.debug "oversea  get_address  #{addr} " if @logger and oversea_flag
-            	@logger.debug "domestic get_address  #{addr} " if @logger and not oversea_flag
-            end
+            # result.each do |addr| 
+            # 	@logger.debug "oversea  get_address  #{addr} " if @logger and oversea_flag
+            # 	@logger.debug "domestic get_address  #{addr} " if @logger and not oversea_flag
+            # end
+
+            #ip_list = result.inject(""){|r,v| r<<(v+' ')}
+            ip_list =""
+            result.each do |addr|
+            	ip_list << (addr.to_s + ' ')
+            end 
+
+            #if ip_list!=""
+              @logger.debug "oversea  : address=/#{name}/#{ip_list} " if @logger and oversea_flag
+              @logger.debug "domestic : address=/#{name}/#{ip_list} " if @logger and not oversea_flag
+            #end
 
 			return result
 		end
@@ -90,7 +132,7 @@ class MyResolver < RubyDNS::Resolver
 			request = Request.new(message,server_list)
 			request.each do |server|
 				#@logger.debug "[#{message.id}] Sending request #{message.question} to server #{server.instance_variables}" if @logger
-				@logger.debug "[#{message.id}] Sending request #{get_request_domain_name(message)} to server #{server.inspect}" if @logger
+				@logger.debug "[#{message.id}] Sending request [#{get_request_domain_name(message)}] to server #{server.inspect}" if @logger
 				
 				begin
 					response = nil
@@ -104,7 +146,7 @@ class MyResolver < RubyDNS::Resolver
 					end
 					
 					if valid_response(message, response)
-						addr = get_address(response,oversea_flag)
+						addr = get_address(get_request_domain_name(message),response,oversea_flag)
 						return response , addr
 					end
 				rescue Task::TimeoutError
@@ -129,7 +171,8 @@ class MyResolver < RubyDNS::Resolver
 		end 
 
 		def get_request_domain_name(message)
-		   return message.question[0][0].to_s
+			name = message.question[0][0].to_s
+		   return name[0..name.length-2]
 	    end
 
 end

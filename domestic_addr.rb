@@ -1,6 +1,12 @@
 class Domestic_address 
 
- def load_domestic_file(fname)
+	 def initialize(domestic_addr_file,force_domestic_file)
+    	    load_domestic_file(domestic_addr_file)
+    	    load_force_domestic_file(force_domestic_file)
+
+    end
+
+    def load_domestic_file(fname)
 		@ta = []
         File.open(fname) do |file|
 	        file.each_line do |line|
@@ -12,7 +18,9 @@ class Domestic_address
 	          
 	          @ta.push( [ (to_hex(code[0..t1-1]) & mask),mask,mask_len,code])
             end
-         end
+          end
+
+
 
          # p @ta.length
          
@@ -20,6 +28,28 @@ class Domestic_address
          #   puts "#{(x[0].to_s(16))},#{to_ip(x[0])},#{x[1].to_s(16)},#{x[2]},#{x[3]}" 
          # end
 	end #load_domectic_file
+
+	def load_force_domestic_file(fname)
+		@force_list = []
+        File.open(fname) do |file|
+	        file.each_line do |line|
+
+	          @force_list.push(line.strip) if line.strip.length>0
+            end
+          end
+
+        #@force_list.each {|x| p x}
+	end #load_force_domectic_file
+
+	def is_force_domain?(name)
+		@force_list.each do |line|
+			found = name.index(line)
+			return true if found!=nil
+		end
+		return false
+	end
+
+
 
 	def show_ele(x)
 	  "#{(x[0].to_s(16))},#{to_ip(x[0])},#{x[1].to_s(16)},#{x[2]},#{x[3]}" 
@@ -67,7 +97,9 @@ class Domestic_address
         end
 
         return false
-	end
+	end #belong_to
+
+
 end
 
 # da=Domestic_address.new
