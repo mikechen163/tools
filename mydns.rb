@@ -5,8 +5,8 @@ require 'logger'
 require_relative 'myresolver'
 
 INTERFACES = [
-    [:udp, "127.0.0.1", 53],
-    [:tcp, "127.0.0.1", 53]
+    [:udp, "127.0.0.1", 5300],
+    [:tcp, "127.0.0.1", 5300]
 ]
 Name = Resolv::DNS::Name
 IN = Resolv::DNS::Resource::IN

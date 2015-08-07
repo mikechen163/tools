@@ -3,7 +3,7 @@ class Domestic_address
 	 def initialize(domestic_addr_file,force_domestic_file)
     	    load_domestic_file(domestic_addr_file)
     	    load_force_domestic_file(force_domestic_file)
-    	    
+
 
     end
 
@@ -41,6 +41,42 @@ class Domestic_address
 
         #@force_list.each {|x| p x}
 	end #load_force_domectic_file
+
+	# def load_cache(cache,fname)
+	# 	   File.open(fname) do |file|
+	#         file.each_line do |line|
+	#           temp,name,iplist = line.split('/')
+	#           if (h = cache.find {|h| h[:name] == name}) == nil
+	#           	 h=Hash.new
+	# 	 	     h[:name] = name
+	# 	 		 h[:ip]   = iplist.split(' ')
+	# 	 		 h[:ttl]  =  h[:ip].collect {|x| 600} # 10 minitues default
+	# 	 		 h[:response] = make_response(name,h[:ip])
+	# 	 		 h[:time] = Time.now
+	# 	 		 h[:state_valid] = true
+	# 	 		 cache.push(h) 
+	#           else #this domain exists
+	#           	update_flag = false
+	#           	iplist.split(' ').each do |ip|
+	#           	  if (nr=h[:ip].find{|x| x==ip})==nil
+	#           	  	h[:ip].push(ip)
+	#           	  	update_flag = true
+	#           	  end
+	#           	end
+
+	#           	if update_flag
+	#           		h[:response] = make_response(name,h[:ip])
+	#           	end
+
+	#           end
+
+ #            end
+ #          end
+	# end
+
+	# def make_response(name,iplist)
+	# 	return ""
+	# end
 
 	def is_force_domain?(name)
 		@force_list.each do |line|
@@ -103,7 +139,10 @@ class Domestic_address
 
 end
 
-# da=Domestic_address.new
+ # da=Domestic_address.new('chnroute.txt','domestic_name.conf')
+ # cache = []
+ # da.load_cache(cache,'oversea.conf')
+ # cache.each {|h| puts "#{h[:name]} #{h[:ip]} "}
 
 # da.load_domestic_file('chnroute.txt')
 # #p da.to_hex('192.168.3.21')
