@@ -1,0 +1,546 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"pos",
+				"pos1"
+			],
+			[
+				"dig",
+				"dig_test"
+			],
+			[
+				"por",
+				"port_start"
+			],
+			[
+				"ti",
+				"time_stamp"
+			],
+			[
+				"st",
+				"stdout"
+			],
+			[
+				"mo",
+				"monitor_ma20"
+			],
+			[
+				"to",
+				"to_i"
+			],
+			[
+				"la",
+				"last_t"
+			],
+			[
+				"sel",
+				"sell_out"
+			],
+			[
+				"ma",
+				"ma20"
+			],
+			[
+				"code",
+				"codelist"
+			],
+			[
+				"mar",
+				"market"
+			],
+			[
+				"start",
+				"start_date"
+			],
+			[
+				"act",
+				"ActiveRecord"
+			],
+			[
+				"req",
+				"require"
+			],
+			[
+				"z",
+				"check_zz500"
+			],
+			[
+				"last",
+				"last_price"
+			],
+			[
+				"last_",
+				"last_action"
+			],
+			[
+				"co",
+				"codelist"
+			],
+			[
+				"le",
+				"level"
+			],
+			[
+				"copy",
+				"copy_dir"
+			],
+			[
+				"len",
+				"length"
+			],
+			[
+				"show",
+				"show_history"
+			],
+			[
+				"to_",
+				"to_hash"
+			],
+			[
+				"end",
+				"end_date"
+			],
+			[
+				"en",
+				"end_date"
+			],
+			[
+				"tra",
+				"trading_time_flag"
+			],
+			[
+				"time",
+				"time_str"
+			],
+			[
+				"get",
+				"get_name_str"
+			],
+			[
+				"db",
+				"db_name"
+			],
+			[
+				"dir",
+				"direction"
+			],
+			[
+				"se",
+				"seconds"
+			],
+			[
+				"pre",
+				"peroid"
+			],
+			[
+				"tr",
+				"trading_time_flag"
+			],
+			[
+				"class",
+				"class_name"
+			],
+			[
+				"log",
+				"logfile"
+			],
+			[
+				"an",
+				"analysis"
+			],
+			[
+				"ssh",
+				"ssh_log"
+			],
+			[
+				"coun",
+				"counter"
+			],
+			[
+				"rep",
+				"rep_times"
+			],
+			[
+				"l",
+				"length"
+			],
+			[
+				"mac",
+				"macd_p"
+			],
+			[
+				"tod",
+				"today_roe"
+			],
+			[
+				"ema",
+				"ema_p"
+			],
+			[
+				"las",
+				"last_action"
+			],
+			[
+				"ls",
+				"last_action"
+			],
+			[
+				"total",
+				"total_roe"
+			],
+			[
+				"tot",
+				"total_roe"
+			],
+			[
+				"w",
+				"w_list"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "walk.rb",
+			"settings":
+			{
+				"buffer_size": 1013,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test_dnssec.rb",
+			"settings":
+			{
+				"buffer_size": 2413,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/mike/work/proxy/proxy.go",
+			"settings":
+			{
+				"buffer_size": 7786,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 347.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 593.0
+	},
+	"console":
+	{
+		"height": 181.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/mike/work/stock_monitor/tushare_interface.rb",
+		"/Users/mike/work/tools/sync.rb",
+		"/Users/mike/work/rubydns/lib/rubydns.rb",
+		"/Users/mike/work/rubydns/lib/rubydns/transaction.rb",
+		"/Users/mike/work/rubydns/lib/rubydns/server.rb",
+		"/Users/mike/work/rubydns/lib/rubydns/resolver.rb",
+		"/Users/mike/work/rubydns/lib/rubydns/message.rb",
+		"/Users/mike/work/rubydns/lib/rubydns/system.rb",
+		"/Users/mike/work/rubydns/lib/rubydns/extensions/resolv.rb",
+		"/Users/mike/work/rubydns/lib/rubydns/extensions/string.rb",
+		"/Users/mike/work/tools/mydns.rb",
+		"/Users/mike/work/stock_monitor/t.log",
+		"/Users/mike/work/tools/fipt.rb",
+		"/Users/mike/work/stock_monitor/quicktrade.rb",
+		"/Users/mike/work/stock_monitor/network_stock_interface.rb",
+		"/Users/mike/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/mike/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/mike/install_shadowsocks_libev.sh",
+		"/Users/mike/mtntfs.sh",
+		"/Users/mike/mtusb.sh",
+		"/Users/mike/ntfs.sh",
+		"/Users/mike/scp_linode.sh",
+		"/Users/mike/stssh.sh",
+		"/Users/mike/work/stock_monitor/all_name.txt",
+		"/Users/mike/work/stock_monitor/sync.rb",
+		"/Users/mike/work/stock_monitor/walk.rb",
+		"/Users/mike/work/stock_monitor/allm.txt",
+		"/Users/mike/work/stock_monitor/alln.txt",
+		"/Users/mike/work/stock_monitor/work.rb",
+		"/Users/mike/work/stock_monitor/README.md",
+		"/Users/mike/work/stock_monitor/quert.sql",
+		"/Users/mike/mikechen163.github.com/source/_posts/2012-03-22-how-to-use-octopress.markdown",
+		"/Users/mike/mikechen163.github.com/sass/base/_layout.scss",
+		"/Users/mike/mikechen163.github.com/sass/partials/_navigation.scss",
+		"/Users/mike/mikechen163.github.com/sass/base/_typography.scss",
+		"/Users/mike/work/stock_monitor/index_monitor.rb",
+		"/Users/mike/work/stock_monitor/tushare_demo1.rb",
+		"/Users/mike/.rvm/gems/ruby-2.2.2@sa/gems/rupy-0.4.2/lib/rupy/pyobject.rb",
+		"/Users/mike/.rvm/gems/ruby-2.2.2@sa/gems/rupy-0.4.2/lib/rupy/rubypyproxy.rb",
+		"/Users/mike/work/ruby/sa/network_stock_interface.rb",
+		"/Users/mike/work/ruby/sa/Db_interface.rb",
+		"/Users/mike/work/ruby/sa/index_monitor.rb",
+		"/Users/mike/work/ruby/sa/quicktrade.rb",
+		"/Users/mike/work/ruby/sa/min_list.rb",
+		"/Users/mike/work/ruby/sa/update_db.rb",
+		"/Users/mike/work/ruby/sa/result/mode 57 73.txt",
+		"/Users/mike/weblog/octopress/_config.yml",
+		"/Users/mike/weblog/octopress/source/downloads/code/ruby/analysis_ssh_log.rb",
+		"/Users/mike/weblog/octopress/source/_includes/article.html",
+		"/Users/mike/weblog/octopress/plugins/octopress_filters.rb",
+		"/Users/mike/show_ssh_failed_ip.rb",
+		"/Users/mike/work/ruby/sa/result/mode compare 260_all.txt",
+		"/Users/mike/work/ruby/sa/yahoof.rb",
+		"/Users/mike/work/ruby/sa/data_0612/SH000300.txt",
+		"/Users/mike/work/ruby/sa/data_0619/SH600000.txt",
+		"/Users/mike/work/ruby/sa/data_0619/SH000300.txt"
+	],
+	"find":
+	{
+		"height": 30.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"POOL_SIZE",
+			"theme",
+			"excerpt_link",
+			"ema",
+			"caff"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "walk.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1013,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								321,
+								321
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 421.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "test_dnssec.rb",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2413,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1663,
+								1663
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/mike/work/proxy/proxy.go",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7786,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								56,
+								56
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Go/Go.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2286.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 30.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 148.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 227.0
+	},
+	"pinned_build_system": "",
+	"project": "tools.sublime-project",
+	"replace":
+	{
+		"height": 56.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 297.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
